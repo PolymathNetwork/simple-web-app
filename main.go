@@ -158,10 +158,6 @@ func GetIP(r *http.Request) (string, error) {
 }
 
 func SetupDatabase() {
-	LoadEnvVariables()
-
-	fmt.Printf("User, Pass, Host, Port, DBName, DBParams: %s, %s, %s, %s, %s, %s", User, Pass, Host, Port, DBName, DBParams)
-
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
 	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/?%s", User, Pass, Host, Port, DBParams))
@@ -201,8 +197,6 @@ func SetupDatabase() {
 }
 
 func SetupTable() {
-	LoadEnvVariables()
-
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
 	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, Port, DBName, DBParams))
@@ -228,8 +222,6 @@ func SetupTable() {
 }
 
 func GetDatabaseInstance() *pgxpool.Pool {
-	LoadEnvVariables()
-
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
 	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, Port, DBName, DBParams))
