@@ -7,5 +7,5 @@ This app reads following environment variables:
 | DB_PASS   | postgres        |
 | DB_HOST   | localhost       |
 | DB_PORT   | 5432            |
-| DB_NAME   | moon            |
+| DB_NAME   | visitscounter   |
 | DB_PARAMS | sslmode=disable |

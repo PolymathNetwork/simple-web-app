@@ -17,7 +17,7 @@ import (
 )
 
 /* global variable declaration */
-var User, Pass, Host, Port, DBName, DBParams string
+var User, Pass, Host, DBPort, DBName, DBParams, Port string
 
 func main() {
 	LoadEnvVariables()
@@ -48,9 +48,9 @@ func LoadEnvVariables() {
 	if "" == Host {
 		Host = "localhost"
 	}
-	Port = os.Getenv("DB_PORT")
-	if "" == Port {
-		Port = "5432"
+	DBPort = os.Getenv("DB_PORT")
+	if "" == DBPort {
+		DBPort = "5432"
 	}
 	DBName = os.Getenv("DB_NAME")
 	if "" == DBName {
@@ -159,7 +159,7 @@ func GetIP(r *http.Request) (string, error) {
 func SetupDatabase() {
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
-	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/?%s", User, Pass, Host, Port, DBParams))
+	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/?%s", User, Pass, Host, DBPort, DBParams))
 	if err != nil {
 		log.Crit("Wrong database config", "error", err)
 		os.Exit(1)
@@ -198,7 +198,7 @@ func SetupDatabase() {
 func SetupTable() {
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
-	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, Port, DBName, DBParams))
+	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, DBPort, DBName, DBParams))
 	if err != nil {
 		log.Crit("Wrong database config", "error", err)
 		os.Exit(1)
@@ -223,7 +223,7 @@ func SetupTable() {
 func GetDatabaseInstance() *pgxpool.Pool {
 	logger := log15adapter.NewLogger(log.New("module", "pgx"))
 
-	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, Port, DBName, DBParams))
+	poolConfig, err := pgxpool.ParseConfig(fmt.Sprintf("postgresql://%s:%s@%s:%s/%s?%s", User, Pass, Host, DBPort, DBName, DBParams))
 	if err != nil {
 		log.Crit("Wrong database config", "error", err)
 		os.Exit(1)
