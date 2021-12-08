@@ -22,11 +22,6 @@ var User, Pass, Host, Port, DBName, DBParams string
 func main() {
 	LoadEnvVariables()
 
-	Port := os.Getenv("PORT")
-	if "" == Port {
-		Port = "8080"
-	}
-
 	SetupDatabase()
 	db := GetDatabaseInstance()
 
@@ -59,11 +54,15 @@ func LoadEnvVariables() {
 	}
 	DBName = os.Getenv("DB_NAME")
 	if "" == DBName {
-		DBName = "moon"
+		DBName = "visitscounter"
 	}
 	DBParams = os.Getenv("DB_PARAMS")
 	if "" == DBParams {
 		DBParams = "sslmode=disable"
+	}
+	Port = os.Getenv("PORT")
+	if "" == Port {
+		Port = "8080"
 	}
 }
 
